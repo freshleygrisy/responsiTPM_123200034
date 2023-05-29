@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:responsi_123200034/olahraga.dart';
+import 'package:responsi_123200034/terbaru.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -38,7 +39,14 @@ class HomePage extends StatelessWidget {
                     ))),
             Flexible(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => (Terbaru()),
+                    ),
+                  );
+                },
                 style: TextButton.styleFrom(backgroundColor: Colors.red),
                 child: Text("OLAHRAGA"),
               ),
