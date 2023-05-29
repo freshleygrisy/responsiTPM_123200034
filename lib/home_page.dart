@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
                     },
                     style: TextButton.styleFrom(backgroundColor: Colors.red),
                     child: Text(
-                      "TERBARU",
+                      "OLAHRAGA",
                       style: TextStyle(color: Colors.white),
                     ))),
             Flexible(
@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
                   );
                 },
                 style: TextButton.styleFrom(backgroundColor: Colors.red),
-                child: Text("OLAHRAGA"),
+                child: Text("TERBARU"),
               ),
             ),
           ],
