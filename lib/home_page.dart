@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:responsi_123200034/olahraga.dart';
 import 'package:responsi_123200034/terbaru.dart';
+import 'package:responsi_123200034/nasional.dart';
+import 'package:responsi_123200034/teknologi.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -49,30 +51,48 @@ Widget cnnImage() {
 }
 
 Widget rowButton(BuildContext context) {
-  return Column (
+  return Column(
     children: [
       const Padding(padding: EdgeInsets.all(20)),
       Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Terbaru()),
-                );
-              },
-              child: Text('TERBARU')),
-          Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Olahraga()),
-                );
-              },
-              child: Text('NASIONAL')),
+          Container(
+              width: 150,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Terbaru()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red,
+                ),
+                child: Text(
+                  'TERBARU',
+                  style: TextStyle(color: Colors.white),
+                ),
+              )),
+          Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+          Container(
+              width: 150,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Nasional()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red,
+                ),
+                child: Text(
+                  'NASIONAL',
+                  style: TextStyle(color: Colors.white),
+                ),
+              )),
         ],
       ),
       Padding(padding: EdgeInsets.all(10)),
@@ -80,24 +100,41 @@ Widget rowButton(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Olahraga()),
-              );
-            },
-            child: Text('OLAHRAGA'),
-          ),
-          Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Terbaru()),
-                );
-              },
-              child: Text('TEKNOLOGI')),
+          Container(
+              width: 150,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Olahraga()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red,
+                ),
+                child: Text(
+                  'OLAHRAGA',
+                  style: TextStyle(color: Colors.white),
+                ),
+              )),
+          Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+          Container(
+              width: 150,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Teknologi()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red,
+                ),
+                child: Text(
+                  'TEKNOLOGI',
+                  style: TextStyle(color: Colors.white),
+                ),
+              )),
         ],
       ),
     ],

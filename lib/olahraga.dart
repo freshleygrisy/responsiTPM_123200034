@@ -1,70 +1,101 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'detail.dart';
 
-void main() {
-  runApp(Olahraga());
+class Olahraga extends StatefulWidget {
+  const Olahraga({Key? key}) : super(key: key);
+
+  @override
+  State<Olahraga> createState() => _OlahragaState();
 }
 
-class Olahraga extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Olahraga',
-      home: OlahragaList(Olahraga: 'Olahraga'),
-    );
+class _OlahragaState extends State<Olahraga> {
+  List<dynamic> newsLists = [];
+  List<dynamic> filteredNewsLists = [];
+
+  Future<void> fetchNewsData() async {
+    final response = await http
+        .get(Uri.parse('https://api-berita-indonesia.vercel.app/cnn/olahraga'));
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      setState(() {
+        newsLists = data['data']['posts'];
+        filteredNewsLists = newsLists;
+      });
+    }
   }
-}
-
-class OlahragaList extends StatefulWidget {
-  final String Olahraga;
-
-  OlahragaList({required this.Olahraga});
-
-  @override
-  _OlahragaListState createState() => _OlahragaListState();
-}
-
-class _OlahragaListState extends State<OlahragaList> {
-  List<String> olahraga = [];
 
   @override
   void initState() {
+    fetchNewsData();
     super.initState();
-    fetchOlahraga();
-  }
-
-  Future<void> fetchOlahraga() async {
-    String apiUrl = 'https://api-berita-indonesia.vercel.app/cnn/olahraga';
-
-    try {
-      final response = await http.get(Uri.parse(apiUrl));
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        print('Response Body: $data');
-        setState(() {
-          olahraga = List<String>.from(data);
-        });
-      } else {
-        print('Failed to load character list. Error: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error: $e');
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.Olahraga),
+        centerTitle: true,
+        title: Text('CNN OLAHRAGA'),
+        backgroundColor: Colors.red,
       ),
       body: ListView.builder(
-        itemCount: olahraga.length,
+        itemCount: filteredNewsLists.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(olahraga[index]),
+          final news = filteredNewsLists[index];
+          return Container(
+            height: 100, // Tinggi list item
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                side: BorderSide(color: Colors.grey[200]!, width: 1.0),
+              ),
+              child: InkWell(
+                onTap: () {
+                  // Handle news item tap
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => detail(news: news),
+                    ),
+                  );
+                },
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 150, // Lebar gambar
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.network(
+                          news['thumbnail'],
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              news['title'],
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           );
         },
       ),

@@ -3,20 +3,20 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'detail.dart';
 
-class Terbaru extends StatefulWidget {
-  const Terbaru({Key? key}) : super(key: key);
+class Nasional extends StatefulWidget {
+  const Nasional({Key? key}) : super(key: key);
 
   @override
-  State<Terbaru> createState() => _TerbaruState();
+  State<Nasional> createState() => _NasionalState();
 }
 
-class _TerbaruState extends State<Terbaru> {
+class _NasionalState extends State<Nasional> {
   List<dynamic> newsLists = [];
   List<dynamic> filteredNewsLists = [];
 
   Future<void> fetchNewsData() async {
     final response = await http
-        .get(Uri.parse('https://api-berita-indonesia.vercel.app/cnn/terbaru'));
+        .get(Uri.parse('https://api-berita-indonesia.vercel.app/cnn/nasional'));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       setState(() {
@@ -37,7 +37,7 @@ class _TerbaruState extends State<Terbaru> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('CNN TERBARU'),
+        title: Text('CNN NASIONAL'),
         backgroundColor: Colors.red,
       ),
       body: ListView.builder(
