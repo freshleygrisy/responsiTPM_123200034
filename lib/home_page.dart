@@ -1,59 +1,105 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:responsi_123200034/olahraga.dart';
 import 'package:responsi_123200034/terbaru.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(
-              'https://cdn.cnnindonesia.com/cnnid/images/logo_cnn_fav.png'),
-        ),
-      ),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Container(
+        padding: const EdgeInsets.all(50.0),
+        child: ListView(
           children: <Widget>[
-            Flexible(
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => (Olahraga()),
-                        ),
-                      );
-                    },
-                    style: TextButton.styleFrom(backgroundColor: Colors.red),
-                    child: Text(
-                      "OLAHRAGA",
-                      style: TextStyle(color: Colors.white),
-                    ))),
-            Flexible(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => (Terbaru()),
-                    ),
-                  );
-                },
-                style: TextButton.styleFrom(backgroundColor: Colors.red),
-                child: Text("TERBARU"),
+            Center(
+              child: Column(
+                children: <Widget>[
+                  cnnImage(),
+                  rowButton(context),
+                ],
               ),
-            ),
+            )
           ],
         ),
       ),
-    ));
+    );
   }
+}
+
+Widget cnnImage() {
+  return Column(
+    children: [
+      Padding(padding: EdgeInsets.only(top: 70)),
+      ClipRRect(
+        borderRadius: BorderRadius.circular(30),
+        child: Image.network(
+          'https://cdn.cnnindonesia.com/cnnid/images/logo_cnn_fav.png',
+          width: 250,
+          height: 250,
+        ),
+      ),
+    ],
+  );
+}
+
+Widget rowButton(BuildContext context) {
+  return Column (
+    children: [
+      const Padding(padding: EdgeInsets.all(20)),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Terbaru()),
+                );
+              },
+              child: Text('TERBARU')),
+          Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Olahraga()),
+                );
+              },
+              child: Text('NASIONAL')),
+        ],
+      ),
+      Padding(padding: EdgeInsets.all(10)),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Olahraga()),
+              );
+            },
+            child: Text('OLAHRAGA'),
+          ),
+          Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Terbaru()),
+                );
+              },
+              child: Text('TEKNOLOGI')),
+        ],
+      ),
+    ],
+  );
 }
